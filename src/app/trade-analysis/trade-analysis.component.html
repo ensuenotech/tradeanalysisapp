@@ -1,1 +1,214 @@
-<p>trade-analysis works!</p>
+<!-- <p>trade-analysis works! trade-analysis works!vtrade-analysis works!v</p>dffh -->
+<div class="container mx-auto py-8">
+    <div class="flex justify-center">
+      <div class="w-full">
+        <!-- Tab Navigation -->
+        <div class="flex justify-center items-center mb-4">
+          <button
+            [ngClass]="{
+              'bg-indigo-500 text-white': currentTab === 'statistics',
+              'bg-gray-200 text-gray-700': currentTab !== 'statistics'
+            }"
+            class="tab-button px-4 py-2 font-semibold text-sm rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            (click)="showTab('statistics')"
+          >
+            Statistics
+          </button>
+          <button
+            [ngClass]="{
+              'bg-indigo-500 text-white': currentTab === 'chart',
+              'bg-gray-200 text-gray-700': currentTab !== 'chart'
+            }"
+            class="tab-button px-4 py-2 font-semibold text-sm rounded-r-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            (click)="showTab('chart')"
+          >
+            Chart
+          </button>
+        </div>
+  
+        <!-- Tab Content -->
+        <div *ngIf="currentTab === 'statistics'" class="tab-content">
+          <div class="flex justify-center mt-4">
+            <div class="w-full lg:w-1/2">
+              <table class="table-auto w-full border border-gray-300 rounded-lg shadow-md">
+                <thead class="bg-gray-100">
+                  <tr>
+                    <th scope="col" class="px-4 py-2 text-left">Statistic</th>
+                    <th scope="col" class="px-4 py-2 text-left">Profit</th>
+                    <th scope="col" class="px-4 py-2 text-left">Loss</th>
+                    <th scope="col" class="px-4 py-2 text-left">Net</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Amount</th>
+                    <td class="px-4 py-2">{{data?.amount?.profit}}</td>
+                    <td class="px-4 py-2">{{data?.amount?.loss}}</td>
+                    <td class="px-4 py-2">{{data?.amount?.net}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Number of Trades</th>
+                    <td class="px-4 py-2">{{data?.numberOfTrades?.profit}}</td>
+                    <td class="px-4 py-2">{{data?.numberOfTrades?.loss}}</td>
+                    <td class="px-4 py-2">{{data?.numberOfTrades?.net}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Average</th>
+                    <td class="px-4 py-2">{{data?.average?.profit | number:'1.1-2'}}</td>
+                    <td class="px-4 py-2">{{data?.average?.loss | number:'1.1-2'}}</td>
+                    <td class="px-4 py-2">{{data?.average?.net | number:'1.1-2'}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Accuracy</th>
+                    <td class="px-4 py-2">{{data?.accuracy?.profit}}</td>
+                    <td class="px-4 py-2">{{data?.accuracy?.loss}}</td>
+                    <td class="px-4 py-2">{{data?.accuracy?.net}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Max Trade Amount</th>
+                    <td class="px-4 py-2">{{data?.maxTradeAmount?.profit}}</td>
+                    <td class="px-4 py-2">{{data?.maxTradeAmount?.loss}}</td>
+                    <td class="px-4 py-2">{{data?.maxTradeAmount?.net}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Max Trade Date</th>
+                    <td class="px-4 py-2">{{data?.maxTradeDate?.profit | date:'dd-MM-yyyy'}}</td>
+                    <td class="px-4 py-2">{{data?.maxTradeDate?.loss | date:'dd-MM-yyyy'}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">80% contributing Trades</th>
+                    <td class="px-4 py-2">{{profitCount_80}}</td>
+                    <td class="px-4 py-2">{{lossCount_80}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">60% contributing Trades</th>
+                    <td class="px-4 py-2">{{profitCount_60}}</td>
+                    <td class="px-4 py-2">{{lossCount_60}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  
+                  <!-- null values -->
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Number of Trading Days</th>
+                    <td class="px-4 py-2">{{data?.numberOfTradingDays?.profit}}</td>
+                    <td class="px-4 py-2">{{data?.numberOfTradingDays?.loss}}</td>
+                    <td class="px-4 py-2">{{data?.numberOfTradingDays?.net}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Max Day Amount</th>
+                    <td class="px-4 py-2">{{data?.maxDayAmount?.profit}}</td>
+                    <td class="px-4 py-2">{{data?.maxDayAmount?.loss}}</td>
+                    <td class="px-4 py-2">{{data?.maxDayAmount?.net}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Max Date</th>
+                    <td class="px-4 py-2">{{data?.maxDate.profit | date:'dd-MM-yyyy'}}</td>
+                    <td class="px-4 py-2">{{data?.maxDate.loss | date:'dd-MM-yyyy'}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  
+                  <!-- null value -->
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Amount of Day</th>
+                    <td class="px-4 py-2">{{data?.amountOfDay?.profit}}</td>
+                    <td class="px-4 py-2">{{data?.amountOfDay?.loss}}</td>
+                    <td class="px-4 py-2">{{data?.amountOfDay?.net}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Average Trade Per Day</th>
+                    <td class="px-4 py-2">{{data?.averageTradePerDay?.profit | number:'1.1-2'}}</td>
+                    <td class="px-4 py-2">{{data?.averageTradePerDay?.loss | number:'1.1-2'}}</td>
+                    <td class="px-4 py-2">{{data?.averageTradePerDay?.net | number:'1.1-2'}}</td>
+                  </tr>
+                  
+                  <!-- null values for now edit later -->
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">80% contributing days</th>
+                    <td class="px-4 py-2">{{profitCountDays_80}}</td>
+                    <td class="px-4 py-2">{{lossCountDays_80}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">60% contributing days</th>
+                    <td class="px-4 py-2">{{profitCountDays_60}}</td>
+                    <td class="px-4 py-2">{{lossCountDays_60}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">3 Days Streak</th>
+                    <td class="px-4 py-2">{{counter3}}</td>
+                    <td class="px-4 py-2">{{losscounter3}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">5 Days Streak</th>
+                    <td class="px-4 py-2">{{counter5}}</td>
+                    <td class="px-4 py-2">{{losscounter5}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">10 Days Streak</th>
+                    <td class="px-4 py-2">{{counter10}}</td>
+                    <td class="px-4 py-2">{{losscounter10}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">20 Days Streak</th>
+                    <td class="px-4 py-2">{{counter20}}</td>
+                    <td class="px-4 py-2">{{losscounter20}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Top Asset</th>
+                    <td class="px-4 py-2">{{data?.topAsset.profit}}</td>
+                    <td class="px-4 py-2">{{data?.topAsset.loss}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Top Asset Contribution</th>
+                    <td class="px-4 py-2">{{data?.topAssetContribution?.profit*100 | number:'1.1-2'}}</td>
+                    <td class="px-4 py-2">{{data?.topAssetContribution?.loss*100 | number:'1.1-2'}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Top Symbol</th>
+                    <td class="px-4 py-2">{{data?.topSymbol?.profit}}</td>
+                    <td class="px-4 py-2">{{data?.topSymbol?.loss}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Top Symbol Contribution</th>
+                    <td class="px-4 py-2">{{data?.topSymbolContribution?.profit | number:'1.1-2'}}</td>
+                    <td class="px-4 py-2">{{data?.topSymbolContribution?.loss | number:'1.1-2'}}</td>
+                    <td class="px-4 py-2">-</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left px-4 py-2" scope="row">Trade Expense</th>
+                    <td class="px-4 py-2" colspan="3">{{data?.tradeExpense | number:'1.1-2'}}</td>
+                  </tr>
+                  
+                  <!-- More rows here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="currentTab === 'chart'" class="tab-content">
+          <div class="chart-wrapper mt-5">
+           
+            <highcharts-chart 
+  [Highcharts]="Highcharts"
+  [options]="pandlChart"
+  style="width: 100%; height: 400px; display: block;">
+</highcharts-chart>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

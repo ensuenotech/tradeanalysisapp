@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { TradeAnalysisComponent } from './trade-analysis/trade-analysis.component';
-
+import { AuthService } from './services/auth.service';
 export const routes: Routes = [
 
 
@@ -16,14 +16,14 @@ export const routes: Routes = [
     component:LoginComponent,
   },
   {
-    path:'',
-    component: LayoutComponent,
-    children:[
-        {
-            path:'dashboard',
-            component:TradeAnalysisComponent
-        }
-    ]
+    path:'dashboard',
+    component: TradeAnalysisComponent,
+    // children:[
+    //     {
+    //         path:'dashboard',
+    //         component:TradeAnalysisComponent
+    //     }
+    // ]
   }
   
 ];

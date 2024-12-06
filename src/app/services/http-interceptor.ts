@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 export class httpInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, newRequest: HttpHandler): Observable<HttpEvent<any>> {
     // add authorization header to request
-
+debugger
     //Get Token data from local storage
     let tokenInfo = localStorage.getItem('userToken');
     if (tokenInfo) {

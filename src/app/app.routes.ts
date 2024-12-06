@@ -16,7 +16,7 @@ export const routes: Routes = [
     component:LoginComponent,
   },
   {
-    path:'dashboard',
+    path:'tradeAnalysis',
     component: TradeAnalysisComponent,
     // children:[
     //     {

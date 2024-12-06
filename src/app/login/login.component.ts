@@ -66,7 +66,7 @@ ngOnInit(): void {
               this.localStorage.set("userdata", this.encService.encrypt(JSON.stringify(res)))
             })
           }
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/tradeAnalysis');
 
         }
         else if (res.result == false && res.message == "reset_password") {

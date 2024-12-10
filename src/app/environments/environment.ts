@@ -24,14 +24,7 @@
 
 export const environment = {
   production:false,
-  // coreAppURL: "https://localhost:5001",
-  coreAppURL: "https://testapi.i4option.com",
-  wsURL: "wss://wsapii4option.niftyaction.com/", 
-  // wsURL: "wss://api.i4option.com", 
-  wsTradeURL: "wss://wsapimarket.niftyaction.com/",
-  // wsTradeURL: "wss://market.i4option.com",
-  // wsTradeURL:"ws://localhost:3000",
-  //  wsURL: "ws://localhost:80",
+  coreAppURL: "http://tradeanalysisapi.i4option.com",
   timezone: "Asia/Kolkata",
   locale: "en-us",
   authentication: {

@@ -5,8 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts'; // Correctly import Highcharts
 import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
-import { TradeService } from '../services/trade.service';
+
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import * as _ from 'lodash';
 import moment from 'moment';
@@ -95,9 +94,9 @@ export interface ITradeAnalysisModel {
   daysStreak_120: null
   topAsset: { profit: any, loss: any }
   topAssetContribution: { profit: any, loss: any, net: any }
-  topSymbol: string
-  topSymbolContribution: number
-  tradeExpense: number
+  topSymbol: any
+  topSymbolContribution: any
+  tradeExpense: any
   userId: any
 
 
@@ -140,15 +139,11 @@ export class TradeAnalysisComponent {
   losscounter20 = 0
 
   constructor(private userService: UserService,
-    private authService: AuthService,
-    private tradeService: TradeService
   ) { }
 
   ngOnInit(): void {
-    this.userId = Number(this.authService.getUserId())
-    this.userService.getTradeAnalysis(this.userId).subscribe((res: any) => {
+    this.userService.getTradeAnalysis().subscribe((res: any) => {
       this.data = res
-      // console.log(this.data)
     })
     this.loadChart();
 
@@ -156,7 +151,7 @@ export class TradeAnalysisComponent {
   loadChart() {
 
     this.loading = true
-    this.tradeService.getPositionListVal(this.userId).subscribe((data: any) => {
+    this.userService.getPositions().subscribe((data: any) => {
       data.forEach((x:any) => {
         x.date = moment(x.updatedOn).format("DD-MM-YYYY")
       })
@@ -217,15 +212,6 @@ export class TradeAnalysisComponent {
         if (_loss >= loss_80 && lossCount_80 == 0) { lossCount_80 = i + 1 }
         return
       })
-
-      // console.log(profitArr)
-      // console.log(lossArr)
-      // console.log(totalProfit)
-      // console.log(totalLoss)
-      // console.log(profit_80)
-      // console.log(loss_80)
-
-
 
       this.profitCount_80 = profitCount_80
       this.lossCount_80 = lossCount_80
@@ -481,7 +467,6 @@ export class TradeAnalysisComponent {
   // }
   // Method to switch tabs
   showTab(tabName: string): void {
-    debugger
     this.currentTab = tabName;
     if(this.currentTab == 'chart')
     {

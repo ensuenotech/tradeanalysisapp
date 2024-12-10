@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { getIST } from 'app/utilities/utils';
 import * as CryptoJS from 'crypto-js';
-import * as moment from 'moment';
+import moment from 'moment';
 import { AuthService } from './auth.service';
-import { parseJwt } from "app/utilities/jwtParser";
+import { getIST } from '../utilities/utils';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -32,12 +31,7 @@ export class AuthGuard implements CanActivate {
                 role = "subscribed"
 
             }
-             if (route.data.roles && route.data.roles.indexOf(role) === -1) {
-                if (new Date(tokenDetails.LIVE_PLAN_EXPIRE_DATE) < new Date(getIST())) {
-                    this.showAlert()
-                }
-                return false;
-            }
+             
             return true;
         }
         // not logged in so redirect to login page with the return url
@@ -45,7 +39,4 @@ export class AuthGuard implements CanActivate {
         return false;
     }
 
-    showAlert() {
-        this.router.navigateByUrl("/subscription/subscribeplan")
-    }
 }

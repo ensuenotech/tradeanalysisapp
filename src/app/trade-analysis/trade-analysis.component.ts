@@ -388,6 +388,9 @@ export class TradeAnalysisComponent {
       this.pandldata = pandldata
       this.loading = false
       this.pandlChart = {
+        accessibility: {
+          enabled: false
+        },
         time: {
           timezoneOffset: -330,
         },

@@ -57,7 +57,8 @@ export class LoginComponent {
         .subscribe(
           (res: any) => {
             this.localStorage.set("userToken", res.token);
-            this.router.navigateByUrl("/tradeAnalysis");
+            this.router.navigateByUrl('/trade/dashboard');
+            // this.router.navigateByUrl("/tradeAnalysis");
           },
           (error: any) => {
             Swal.fire({

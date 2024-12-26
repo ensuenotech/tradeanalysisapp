@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { httpInterceptor } from './services/http-interceptor';
 import { HttpCacheService } from './services/http-cache.service';
 import { HttpClientModule } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },
 ];
@@ -23,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     // provideAnimationsAsync(),
     importProvidersFrom(HttpClientModule),
-    httpInterceptorProviders,
+    httpInterceptorProviders, provideAnimationsAsync(),
     // provideHttpClient(withInterceptors([httpInterceptor])),
   ],
 };

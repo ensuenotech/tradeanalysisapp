@@ -16,6 +16,7 @@ import { Services } from "../services.service";
 })
 export class UserService {
 private API_URL:string =`${this.services.API_URL}/user`;
+private api_url:string =`${this.services.API_URL}/api/user`;
   constructor(private http: HttpClient, private services:Services) {}
 
   getloggedInUserDetails() {
@@ -23,16 +24,41 @@ private API_URL:string =`${this.services.API_URL}/user`;
     const userdetails = parseJwt(userdata);
     return userdetails
   }
-
+  GetStates(id: number) {
+    return this.http.get(this.api_url + '/getstates/' + id);
+  }
+  GetCountries() {
+    return this.http.get(this.api_url + '/getcountries');
+  }
+  getProfile(id: number) {
+    return this.http.post(this.api_url + `/getuserdetails`, id, httpOptions);
+  }
+  saveUserDetails(userData: any) {
+    return this.http.post(this.api_url + '/saveUser', userData, httpOptions);
+  }
   refreshToken() {
-    return this.http.get(`${this.API_URL}/refreshtoken`);
+    return this.http.get(`${this.api_url}/refreshtoken`);
   }
-  getTradeAnalysis() {
-    return this.http.get(`${this.API_URL}/TradeAnalysis`)
+  // getTradeAnalysis() {
+  //   return this.http.get(`${this.api_url}/TradeAnalysis`)
+  // }
+  getTradeAnalysis(userId: number) {
+    return this.http.post(
+      this.api_url + "/tradeanalysis",
+      JSON.stringify(userId),
+      httpOptions
+    );
   }
-  getPositions() {
-    return this.http.get(`${this.API_URL}/positions`)
+  // getPositions() {
+  //   return this.http.get(`${this.api_url}/getpositions`)
+  // }
+  // getPositions(userId: number) {
+  //   return this.http.get(`${this.api_url}/getpositions`)
+  // }
+  getPositionListVal(id:any) {
+    return this.http.post(this.api_url + `/getPositions`, id);
   }
+
   sendWelcomeEmail(userId:any) {
     return this.http.post(this.API_URL + "welcome", userId, httpOptions);
   }

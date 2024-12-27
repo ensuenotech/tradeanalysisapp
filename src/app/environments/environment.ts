@@ -24,7 +24,8 @@
 
 export const environment = {
   production:false,
-  coreAppURL: "http://tradeanalysisapi.i4option.com",
+  // coreAppURL: "http://tradeanalysisapi.i4option.com",
+  coreAppURL: "https://testapi.i4option.com",
   timezone: "Asia/Kolkata",
   locale: "en-us",
   authentication: {

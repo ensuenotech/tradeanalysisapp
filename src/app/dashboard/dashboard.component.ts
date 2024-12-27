@@ -85,32 +85,33 @@ export class DashboardComponent {
     reportsSection = 'trade-history';
     userId!: number;
     // userData!: any;
-    userData:any={
-      "userData": {
-        "id": "12345",
-        "firstName": "John",
-        "lastName": "Doe",
-        "mobile": "+1-800-555-1234",
-        "email": "johndoe@example.com",
-        "aadharNumber": "1234-5678-9101",
-        "panNumber": "ABCDE1234F",
-        "upi": "johndoe@upi",
-        "address": {
-          "address": "123 Main St",
-          "city": "Somewhere",
-          "state": "CA",
-          "country": "USA",
-          "pinCode": "90001"
-        },
-        "status": "ACTIVE"
-      },
-      "targetData": {
-        "profit": 50,
-        "sl": -10,
-        "trailAfter": 20,
-        "trailBy": 1
-      }
-    }
+    // userData:any={
+    //   "userData": {
+    //     "id": "12345",
+    //     "firstName": "John",
+    //     "lastName": "Doe",
+    //     "mobile": "+1-800-555-1234",
+    //     "email": "johndoe@example.com",
+    //     "aadharNumber": "1234-5678-9101",
+    //     "panNumber": "ABCDE1234F",
+    //     "upi": "johndoe@upi",
+    //     "address": {
+    //       "address": "123 Main St",
+    //       "city": "Somewhere",
+    //       "state": "CA",
+    //       "country": "USA",
+    //       "pinCode": "90001"
+    //     },
+    //     "status": "ACTIVE"
+    //   },
+    //   "targetData": {
+    //     "profit": 50,
+    //     "sl": -10,
+    //     "trailAfter": 20,
+    //     "trailBy": 1
+    //   }
+    // }
+    userData:any =[]
     
   
     InsertUserForm: FormGroup = this.fb.group({
@@ -165,12 +166,12 @@ export class DashboardComponent {
     ) {}
     showMenu = false;
     ngOnInit(): void {
-      // this.userService.GetCountries().subscribe((res: any) => {
-      //   this.countries = res;
-      // });
-      // this.userService.GetStates(1).subscribe((res: any) => {
-      //   this.allStateNames = res;
-      // });
+      this.userService.GetCountries().subscribe((res: any) => {
+        this.countries = res;
+      });
+      this.userService.GetStates(1).subscribe((res: any) => {
+        this.allStateNames = res;
+      });
       this.route.paramMap.subscribe((params: any) => {
         const section = params.get('section');
         if (section != undefined) {
@@ -179,6 +180,29 @@ export class DashboardComponent {
       });
       this.userId = this.authService.getUserId();
       this.getPayouts();
+      this.userId = this.authService.getUserId();
+      this.userService.getProfile(this.userId).subscribe(
+        (r: any) => {
+          this.userData = r
+          this.InsertUserForm.get('firstName')?.setValue(r.firstName);
+          this.InsertUserForm.get('lastName')?.setValue(r.lastName);
+          this.InsertUserForm.get('email')?.setValue(r?.email);
+          this.InsertUserForm.get('mobile')?.setValue(r?.mobile);
+          this.InsertUserForm.get('state')?.setValue(r?.address?.stateId);
+          this.InsertUserForm.get('socialProfileName')?.setValue(
+            r?.socialProfileName
+          );
+  
+          this.InsertUserForm.get('country')?.setValue(r?.address?.countryId);
+          this.InsertUserForm.get('address')?.setValue(r?.address?.address);
+          this.InsertUserForm.get('pincode')?.setValue(r?.address?.pinCode);
+          this.InsertUserForm.get('city')?.setValue(r?.address?.city);
+        },
+        (error:any) => console.log(error),
+        () => {
+          this.loading = false;
+        }
+      );
       // this.userData = ''
       // this.userService.getProfile(this.userId).subscribe((res: any) => {
       //   this.userData = res;
@@ -342,21 +366,21 @@ export class DashboardComponent {
           upi: this.InsertUserForm.controls['upi'].value,
         };
   
-        // this.userService.saveUserDetails(values).subscribe((res: any) => {
-        //   if (res) {
-        //     Swal.fire({
-        //       title: 'Success',
-        //       text: 'Success',
-        //     }).then(() => {
-        //       window.location.reload();
-        //     });
-        //   } else {
-        //     Swal.fire({
-        //       title: 'Failure',
-        //       text: 'Enter valid data',
-        //     });
-        //   }
-        // });
+        this.userService.saveUserDetails(values).subscribe((res: any) => {
+          if (res) {
+            Swal.fire({
+              title: 'Success',
+              text: 'Success',
+            }).then(() => {
+              window.location.reload();
+            });
+          } else {
+            Swal.fire({
+              title: 'Failure',
+              text: 'Enter valid data',
+            });
+          }
+        });
       } else {
         Swal.fire({
           title: 'Required',

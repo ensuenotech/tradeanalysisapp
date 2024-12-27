@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import * as CryptoJS from 'crypto-js';
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import Swal from "sweetalert2";
 import { LocalStorageService } from "../services/localStorage.service";
@@ -32,7 +33,8 @@ export class LoginComponent {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private userService:UserService
   ) {}
 
   ngOnInit(): void {
@@ -48,26 +50,45 @@ export class LoginComponent {
         text: "Please fill in the required details",
         icon: "warning",
       });
-    } else {
-      this.authService
-        .login({
-          email: this.loginForm.controls["email"].value,
-          password: this.loginForm.controls["password"].value,
-        })
-        .subscribe(
-          (res: any) => {
-            this.localStorage.set("userToken", res.token);
-            this.router.navigateByUrl('/trade/dashboard');
-            // this.router.navigateByUrl("/tradeAnalysis");
-          },
-          (error: any) => {
-            Swal.fire({
-              title: "Login Error",
-              text: error.error,
-              icon: "error",
-            });
-          }
-        );
+    }
+     else 
+     {
+      this.authService.login(this.loginForm.controls["email"].value, this.loginForm.controls["password"].value)
+      .subscribe((res: any) => {
+      let encryptedMessage = CryptoJS.AES.encrypt((res.message).toString(), 'bmsInfo').toString();
+      this.localStorage.set('userStatus', encryptedMessage)
+      if (res.result) {
+        // this.router.navigateByUrl('/contact-admin');
+        this.localStorage.set('userToken', res.token);
+        const userId = this.authService.getUserId()
+        if (userId) {
+          // this.userService.getUserDetails(userId).subscribe((res: any) => {
+          //   this.localStorage.set("userdata", this.encService.encrypt(JSON.stringify(res)))
+          // })
+        }
+        this.router.navigateByUrl('/dashboard');
+      }
+    })
+    
+      // this.authService
+      //   .login({
+      //     email: this.loginForm.controls["email"].value,
+      //     password: this.loginForm.controls["password"].value,
+      //   })
+      //   .subscribe(
+      //     (res: any) => {
+      //       this.localStorage.set("userToken", res.token);
+      //       this.router.navigateByUrl('/trade/dashboard');
+      //       // this.router.navigateByUrl("/tradeAnalysis");
+      //     },
+      //     (error: any) => {
+      //       Swal.fire({
+      //         title: "Login Error",
+      //         text: error.error,
+      //         icon: "error",
+      //       });
+      //     }
+      //   );
     }
   }
 }

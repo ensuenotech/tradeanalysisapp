@@ -36,7 +36,7 @@
                         "
                         class="border-dashed absolute right-0 -top-4 font-bold rounded-md text-lg px-4 py-2 w-fit border-4 uppercase"
                       >
-                        <!-- {{ userData.status == "ACTIVE" ? "Approved" : "Pending" }} -->
+                        {{ userData.status == "ACTIVE" ? "Approved" : "Pending" }}
                       </div>
                     </div>
                     <form [formGroup]="InsertUserForm" >
@@ -236,8 +236,9 @@
                         </dd>
                         </div>
                         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                            <!-- *ngIf="userData.status != 'ACTIVE'" -->
                           <button
-                            *ngIf="userData.status != 'ACTIVE'"
+                           
                             (click)="loadUserDetails()"
                             class="bg-indigo-500 lg:w-1/2 w-full text-white border rounded p-2"
                           >

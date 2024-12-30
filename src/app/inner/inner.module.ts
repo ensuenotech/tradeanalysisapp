@@ -101,7 +101,8 @@ const routes: Routes = [
   declarations: [
     InnerComponent,
     DashboardComponent,
-    InnerNavbarComponent
+    InnerNavbarComponent,
+    UploadersComponent
     
   ],
   imports: [

@@ -1,0 +1,127 @@
+<!-- <p>position-form-modal works!</p> -->
+<div *ngIf="isFormOpen" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+    <!-- <div class="bg-white p-8 rounded-md w-1/2 max-w-3xl"> -->
+        <div class="card w-full max-w-4xl bg-white shadow-md p-5">
+            <div class="card-header bg-gray-100 p-4 text-lg font-semibold flex justify-between items-center">
+              <span>Position Form</span>
+              <!-- Close Button -->
+              <button (click)="closeForm()" class="text-gray-500 hover:text-gray-700">
+                &times;
+              </button>
+            </div>
+        
+      <div class="card-body p-4">
+      <form [formGroup]="positionForm" (ngSubmit)="onSave()">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+          <div>
+            <label for="sellAvg" class="block text-gray-700">SellAvg</label>
+            <input formControlName="sellAvg" type="number" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Sell Avg" />
+          </div>
+          <div>
+            <label for="sellQuantity" class="block text-gray-700">SellQuantity</label>
+            <input formControlName="sellQuantity" type="number" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Sell Quantity" />
+          </div>
+          <div>
+            <label for="buyAvg" class="block text-gray-700">BuyAvg</label>
+            <input formControlName="buyAvg" type="number" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Buy Avg" />
+          </div>
+          <div>
+            <label for="buyQuantity" class="block text-gray-700">BuyQuantity</label>
+            <input formControlName="buyQuantity" type="number" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Buy Quantity" />
+          </div>
+          <div>
+            <label for="ltp" class="block text-gray-700">LTP</label>
+            <input formControlName="ltp" type="number" class="border border-gray-300 p-2 w-full rounded-md" placeholder="LTP" />
+          </div>
+          <div>
+            <label for="orderType" class="block text-gray-700">OrderType</label>
+            <input formControlName="orderType" type="text" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Order Type" />
+          </div>
+          <div>
+            <label for="pAndL" class="block text-gray-700">PAndL</label>
+            <input formControlName="pAndL" type="number" class="border border-gray-300 p-2 w-full rounded-md" placeholder="P&L" />
+          </div>
+          <!-- <div>
+            <label for="symbol" class="block text-gray-700">Symbol</label>
+          <input 
+            id="symbol" 
+            formControlName="symbol" 
+            type="text" 
+            class="border border-gray-300 p-2 w-full rounded-md" 
+            placeholder="Search for a symbol" 
+            (click)="showSearchList = true" 
+            (input)="search($event)" />
+          
+          Dropdown search list
+          <div *ngIf="showSearchList" class="absolute bg-white border border-gray-300 shadow-md max-h-48 overflow-y-auto w-full mt-1 rounded-md z-10">
+            <div *ngFor="let symbol of filteredSymbols" class="cursor-pointer p-2 hover:bg-gray-100" (click)="selectSymbol(symbol)">
+              {{ symbol }}
+            </div>
+          </div>
+   
+          </div> -->
+          <div class="search-container">
+            <label for="symbol" class="block text-gray-700">Symbol</label>
+            <input 
+              id="symbol" 
+              formControlName="symbol" 
+              type="text" 
+              class="search-input" 
+              placeholder="Search for a symbol" 
+              (click)="showSearchList = true" 
+              (input)="search($event)" />
+            
+            <!-- Dropdown search list -->
+            <div *ngIf="showSearchList && filteredSymbols.length > 0" class="search-dropdown">
+              <div 
+                *ngFor="let symbol of filteredSymbols" 
+                class="search-dropdown-item" 
+                (click)="selectSymbol(symbol)">
+                {{ symbol }}
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <label for="userId" class="block text-gray-700">UserId</label>
+            <input formControlName="userId" type="text" class="border border-gray-300 p-2 w-full rounded-md" placeholder="User ID" />
+          </div>
+          <div>
+            <label for="updatedOn" class="block text-gray-700">UpdatedOn</label>
+            <input formControlName="updatedOn" type="date" class="border border-gray-300 p-2 w-full rounded-md" />
+          </div>
+          <div>
+            <label for="quantity" class="block text-gray-700">Quantity</label>
+            <input formControlName="quantity" type="number" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Quantity" />
+          </div>
+          <div>
+            <label for="expiry" class="block text-gray-700">Expiry</label>
+            <input formControlName="expiry" type="date" class="border border-gray-300 p-2 w-full rounded-md" />
+          </div>
+          <div>
+            <label for="strategy" class="block text-gray-700">Strategy</label>
+            <input formControlName="strategy" type="text" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Strategy" />
+          </div>
+          <div>
+            <label for="strike" class="block text-gray-700">Strike</label>
+            <input formControlName="strike" type="number" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Strike Price" />
+          </div>
+          <div>
+            <label for="exchange" class="block text-gray-700">Exchange</label>
+            <input formControlName="exchange" type="text" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Exchange" />
+          </div>
+          <div>
+            <label for="instrumentType" class="block text-gray-700">Instrument Type</label>
+            <input formControlName="instrumentType" type="text" class="border border-gray-300 p-2 w-full rounded-md" placeholder="Instrument Type" />
+          </div>
+        </div>
+  
+        <div class="flex justify-end space-x-3">
+          <button type="button" class="bg-gray-300 py-2 px-4 rounded-md" (click)="closeForm()">Cancel</button>
+          <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md" >Save</button>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+  

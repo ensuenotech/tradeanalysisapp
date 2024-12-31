@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o --port 8769",
-    "build": "ng build",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build",
+    "build-prod": "set NODE_OPTIONS=--openssl-legacy-provider && node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

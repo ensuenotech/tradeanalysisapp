@@ -39,6 +39,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UploadersComponent } from '../uploaders/uploaders.component';
 import { TradeAnalysisComponent } from '../trade-analysis/trade-analysis.component';
+import { JournalComponent } from '../journal/journal.component';
+import { PositionFormModalComponent } from '../position-form-modal/position-form-modal.component';
+import { TradeFormModalComponent } from '../trade-form-modal/trade-form-modal.component';
 const routes: Routes = [
   { path: "dashboard", component:DashboardComponent , title:"Dashboard" },
   
@@ -53,6 +56,7 @@ const routes: Routes = [
   // { path: "all-positions-userwise", component: AllPositionsUserwiseComponent, title:"All Positions Userwise" },
   { path: "uploaders", component: UploadersComponent, title:"uploaders" },
   { path: "trade-analysis", component: TradeAnalysisComponent, title:"Trade Analysis" },
+  { path: "journals", component: JournalComponent, title:"Journals" },
  
   // { path: "positions-normal", component: PositionsNormalComponent, title:"Positions Normal" },
   // { path: "payouts", component: PayoutsComponent, title:"Payouts" }
@@ -94,7 +98,7 @@ const routes: Routes = [
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ];
   
 @NgModule({
@@ -102,7 +106,9 @@ const routes: Routes = [
     InnerComponent,
     DashboardComponent,
     InnerNavbarComponent,
-    UploadersComponent
+    UploadersComponent,
+    PositionFormModalComponent,
+    TradeFormModalComponent
     
   ],
   imports: [

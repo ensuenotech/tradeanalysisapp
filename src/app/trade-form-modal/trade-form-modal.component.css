@@ -1,0 +1,60 @@
+/* Container for the input and dropdown */
+.search-container {
+    position: relative; /* Needed for absolute positioning of the dropdown */
+    width: 100%;
+  }
+  
+  /* Input field */
+  .search-input {
+    width: 100%;
+    padding: 0.5rem; /* Adjust padding for input */
+    border: 1px solid #ccc;
+    border-radius: 0.375rem; /* Rounded corners */
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Focus effect on input */
+  .search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.2);
+  }
+  
+  /* Dropdown container */
+  .search-dropdown {
+    position: absolute;
+    top: 100%; /* Position below the input */
+    left: 0;
+    right: 0;
+    max-height: 12rem; /* Limit dropdown height */
+    overflow-y: auto; /* Enable scrolling if too many items */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: 0.25rem; /* Small gap between input and dropdown */
+  }
+  
+  /* Individual dropdown item */
+  .search-dropdown-item {
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover effect for dropdown item */
+  .search-dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Ensure the dropdown is hidden when no items are found */
+  .search-dropdown.hidden {
+    display: none;
+  }
+  .card-body {
+    max-height: 600px; /* Adjust this value as needed */
+    overflow-y: auto; /* Adds vertical scrolling */
+  }
+  

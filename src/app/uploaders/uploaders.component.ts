@@ -9,6 +9,9 @@ import * as XLSX from 'xlsx';
 })
 export class UploadersComponent {
   suppliers:any = [];
+  isTradeFormOpen:boolean=false;
+  // isFormOpen: boolean = false;
+  isFormOpen: boolean = false;
   suppliersWithFeed = [];
   loading = false;
   valuesForm = this.fb.group({
@@ -137,7 +140,7 @@ export class UploadersComponent {
           // console.log(this.records, Object.keys(XL_row_object[0]).length)
           XL_row_object.forEach((x: any, index: number) => {
             let curruntRecord: any = Object.values(x);
-            for (var i = 0; i <= 13; i++) {
+            for (var i = 0; i <= 15; i++) {
               if (!curruntRecord[i]?.toString().trim()) {
                 console.log(
                   "EMPTY",
@@ -168,6 +171,8 @@ export class UploadersComponent {
               TargetPrice: curruntRecord[14]?.toString().trim(),
               Strategy: curruntRecord[15]?.toString().trim(),
               Strike: curruntRecord[16]?.toString().trim(),
+              Exchange: curruntRecord[17]?.toString().trim(),
+              InstrumentType: curruntRecord[18]?.toString().trim(),
 
              
             };
@@ -181,5 +186,26 @@ export class UploadersComponent {
   
       return;
     }
+     // Method to open the form
+  openPositionForm() {
+    this.isFormOpen = true;
+  }
+  closeForm() {
+    this.isFormOpen = false;
+  }
+  closeTradeForm() {
+    this.isTradeFormOpen = false;
+  }
+  onSaveData(data: any) {
+    console.log('Received form data as JSON:', data);
+    // You can perform further actions with this JSON data, such as saving to a database or sending to an API
+  }
+  openTradeForm(){
+    this.isTradeFormOpen = true;
+  }
+  onSaveTtradeData(data:any){
+    console.log('Received form data as JSON:', data);
+  }
+   
   }
 

@@ -1,0 +1,18 @@
+/* Active Link with underline */
+.active-link {
+    border-bottom: 2px solid #3b82f6; /* Blue underline */
+    color: #3b82f6; /* Adjust color for active link */
+  }
+  
+  /* General style for links */
+  .nav-link {
+    text-decoration: none; /* Ensure no default text decoration */
+    color: #4b5563; /* Default text color */
+  }
+  
+  /* Style for hover effect on all links */
+  .nav-link:hover {
+    color: #3b82f6; /* Hover color */
+    border-bottom: 2px solid #3b82f6; /* Hover underline */
+  }
+  

@@ -1,1 +1,165 @@
-<p>journal works!</p>
+<div class="card w-full bg-white shadow-md p-5 relative">
+    <!-- Card Header -->
+    <div class="card-header bg-gray-100 p-4 text-lg font-semibold">
+      Trading Journal
+    </div>
+  
+    <div class="card-body p-4">
+      <!-- View Logs & Add Logs Buttons (Aligned Horizontally) -->
+      <div class="flex gap-4 mb-6">
+        <button
+          class="btn py-2 px-4 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-100"
+          (click)="showViewLogs()"
+        >
+          View Logs
+        </button>
+  
+        <button
+          class="btn py-2 px-4 border border-green-500 text-green-500 rounded-md hover:bg-green-100"
+          (click)="showAddLog()"
+        >
+          Add Logs
+        </button>
+      </div>
+  
+      <!-- View Logs Section (Table) -->
+      <div *ngIf="viewLogsVisible">
+        <table class="table-auto w-full mt-6">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="py-2 px-4 text-left">Date</th>
+              <th class="py-2 px-4 text-left">Symbol</th>
+              <th class="py-2 px-4 text-left">Quantity</th>
+              <th class="py-2 px-4 text-left">Trade Type</th>
+              <th class="py-2 px-4 text-left">P&L</th>
+              <th class="py-2 px-4 text-left">Result</th>
+              <th class="py-2 px-4 text-left">Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table data for logs (replace with dynamic data from your component) -->
+            <tr *ngFor="let log of logs">
+              <td class="py-2 px-4">{{ log.date }}</td>
+              <td class="py-2 px-4">{{ log.symbol }}</td>
+              <td class="py-2 px-4">{{ log.quantity }}</td>
+              <td class="py-2 px-4">{{ log.tradeType }}</td>
+              <td class="py-2 px-4">{{ log.pnl }}</td>
+              <td class="py-2 px-4">{{ log.result }}</td>
+              <td class="py-2 px-4">{{ log.remarks }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Add Log Section (Form) -->
+      <div *ngIf="addLogVisible">
+        <form [formGroup]="logForm" (ngSubmit)="onSubmit()">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Date -->
+            <div class="space-y-3">
+              <label for="date" class="block text-gray-700">Date</label>
+              <input
+                id="date"
+                formControlName="date"
+                type="date"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+              />
+            </div>
+  
+            <!-- Symbol -->
+            <div class="space-y-3">
+              <label for="symbol" class="block text-gray-700">Symbol</label>
+              <input
+                id="symbol"
+                formControlName="symbol"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Symbol"
+              />
+            </div>
+  
+            <!-- Quantity -->
+            <div class="space-y-3">
+              <label for="quantity" class="block text-gray-700">Quantity</label>
+              <input
+                id="quantity"
+                formControlName="quantity"
+                type="number"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Quantity"
+              />
+            </div>
+  
+            <!-- Trade Type -->
+            <div class="space-y-3">
+              <label for="tradeType" class="block text-gray-700">Trade Type</label>
+              <input
+                id="tradeType"
+                formControlName="tradeType"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Trade Type"
+              />
+            </div>
+  
+            <!-- P&L -->
+            <div class="space-y-3">
+              <label for="pnl" class="block text-gray-700">P&L</label>
+              <input
+                id="pnl"
+                formControlName="pnl"
+                type="number"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter P&L"
+              />
+            </div>
+  
+            <!-- Result -->
+            <div class="space-y-3">
+              <label for="result" class="block text-gray-700">Result</label>
+              <input
+                id="result"
+                formControlName="result"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Result"
+              />
+            </div>
+  
+            <!-- Remarks -->
+            <div class="space-y-3">
+              <label for="remarks" class="block text-gray-700">Remarks</label>
+              <input
+                id="remarks"
+                formControlName="remarks"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Remarks"
+              />
+            </div>
+          </div>
+  
+          <div class="mt-6 flex justify-end gap-4">
+            <!-- Save Log Button -->
+            <button
+              type="submit"
+              class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+              [disabled]="!logForm.valid"
+            >
+              Save Log
+            </button>
+            
+            <!-- Cancel Button -->
+            <button
+              type="button"
+              class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600"
+              (click)="cancelAddLog()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

@@ -108,7 +108,8 @@ const routes: Routes = [
     InnerNavbarComponent,
     UploadersComponent,
     PositionFormModalComponent,
-    TradeFormModalComponent
+    TradeFormModalComponent,
+    JournalComponent
     
   ],
   imports: [

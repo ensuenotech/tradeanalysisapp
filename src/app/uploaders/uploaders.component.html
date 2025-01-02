@@ -18,7 +18,7 @@
             <!-- File Upload Section -->
             <div>
               <div class="space-y-3 mb-4">
-                <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListenerOrder($event)" accept=".csv" class="block w-full py-2 px-4 border border-gray-300 rounded-md"/>
+                <input type="file" #csvReader name="Upload xlsx" id="txtFileUpload" (change)="uploadListenerOrder($event)" accept=".xlsx" class="block w-full py-2 px-4 border border-gray-300 rounded-md"/>
               </div>
               <div class="space-y-3 mb-3">
                 <a href="assets/files/Order-template.xlsx"
@@ -46,7 +46,7 @@
             <!-- Import Button -->
             <div>
               <div class="space-y-3">
-                <button class="btn w-full py-2 px-4 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-100" (click)="importFile()">
+                <button class="btn w-full py-2 px-4 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-100" (click)="importPositionFile()">
                   Import Position Data
                 </button>
               </div>
@@ -54,7 +54,7 @@
             <!-- File Upload Section -->
             <div>
               <div class="space-y-3 mb-4">
-                <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".xlsx" class="block w-full py-2 px-4 border border-gray-300 rounded-md"/>
+                <input type="file" #csvReader name="Upload xlsx" id="txtFileUpload" (change)="uploadListener($event)" accept=".xlsx" class="block w-full py-2 px-4 border border-gray-300 rounded-md"/>
               </div>
               <div class="space-y-3 mb-3">
                 <a href="assets/files/Position-template.xlsx"

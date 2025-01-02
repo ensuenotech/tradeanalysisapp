@@ -17,4 +17,12 @@ private api_url:string =`${this.services.API_URL}`;
       httpOptions
     );
   }
+  submitTrade(data:any){
+      return this.http.post(this.api_url + `/api/user/saveTrade`, data, httpOptions);
+    }
+    submitPosition(data:any){
+      return this.http.post(this.api_url + `/api/user/savePositions`, data, httpOptions);
+    }
+   
+  
 }

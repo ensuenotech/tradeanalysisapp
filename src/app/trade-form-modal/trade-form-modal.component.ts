@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TradeService } from '../services/trade.service';
 import moment from 'moment';
-
+import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-trade-form-modal',
   templateUrl: './trade-form-modal.component.html',
@@ -13,6 +14,7 @@ export class TradeFormModalComponent {
   @Output() closeModal: EventEmitter<void> = new EventEmitter();
   @Output() saveData: EventEmitter<any> = new EventEmitter(); // Emits the form data
    tradeList:any=[]
+   userId:any;
     loading: boolean = false;  // Loader state
     tradeForm: FormGroup;
     showSearchList: boolean = false;  // To toggle search list visibility
@@ -21,37 +23,108 @@ export class TradeFormModalComponent {
   
     timeout: any; // Variable to store timeout reference
   
-    constructor(private fb: FormBuilder,private tradeService:TradeService) {
+    constructor(private fb: FormBuilder,private tradeService:TradeService,private authService:AuthService) {
       // Initialize the form with the necessary controls
       this.tradeForm = this.fb.group({
+        exchange: ['', Validators.required],
+        instrumentType: ['', Validators.required],
+        symbol: ['', Validators.required],
+        strike: ['', [Validators.required, Validators.min(0)]],
+        expiry: ['', Validators.required],
+        strategy: ['', Validators.required],
         orderType: ['', Validators.required],
+        rateType: ['', Validators.required],
+        operationType: ['', Validators.required],
         quantity: ['', [Validators.required, Validators.min(1)]],
         price: ['', [Validators.required, Validators.min(0)]],
         triggerPrice: ['', [Validators.required, Validators.min(0)]],
-        rateType: ['', Validators.required],
         status: ['', Validators.required],
-        symbol: ['', Validators.required],
+        date: ['', Validators.required],
         time: ['', Validators.required],
-        operationType: ['', Validators.required],
-        userId: ['', Validators.required],
-        guid: ['', Validators.required],
-        basketId: ['', Validators.required],
-        expiry: ['', Validators.required],
-        boguid: ['', Validators.required],
         stopLoss: ['', [Validators.required, Validators.min(0)]],
         targetPrice: ['', [Validators.required, Validators.min(0)]],
-        strategy: ['', Validators.required],
-        strike: ['', [Validators.required, Validators.min(0)]]
+        // userId: ['', Validators.required],
+        // guid: ['', Validators.required],
+        // basketId: ['', Validators.required],
+        // boguid: ['', Validators.required],
       });
+      
     }
     onSave() {
       if (this.tradeForm.valid) {
-        console.log('Trade Data:', this.tradeForm.value);
-        // Handle save action here
+        this.userId = this.authService.getUserId();
+      
+        // Mapping the form values to the required structure
+        const formValues = this.tradeForm.value;
+        
+        const tradeData = {
+          userId: this.userId,
+          list: [
+            {
+              id: 0, // Set a default or fetch dynamically if needed
+              orderType: formValues.orderType,
+              quantity: formValues.quantity,
+              price: formValues.price,
+              triggerPrice: formValues.triggerPrice,
+              stopLoss: formValues.stopLoss, // Assuming this is in the form
+              targetPrice: formValues.targetPrice, // Assuming this is in the form
+              rateType: formValues.rateType,
+              status: formValues.status,
+              strategy: formValues.strategy,
+              symbol: formValues.symbol,
+              operationType: formValues.operationType,
+              userId: this.userId,
+              guid: formValues.guid, // Assuming `guid` is part of the form or elsewhere
+              boguid: formValues.boguid, // Assuming `boguid` is part of the form or elsewhere
+              basketId: formValues.basketId || 0, // Assuming `basketId` is part of the form or elsewhere
+              strike: formValues.strike,
+              expiry: formValues.expiry, // Ensure it's a valid date if needed
+              time: formValues.time, // Ensure it's in the correct date/time format
+              exchange: formValues.exchange,  // Assuming `exchange` is part of the form
+              instrumentType: formValues.instrumentType,  // Assuming `instrumentType` is part of the form
+            },
+          ]
+        };
+      
+        // Logging the final object for reference
+        // console.log('Formatted Trade Data:', JSON.stringify(tradeData, null, 2));
+      
+        // Send this object to the backend or API
+        this.tradeService.submitTrade(tradeData).subscribe(response => {
+          if (response) {
+            // Show success alert with SweetAlert and close the dialog on "OK"
+            Swal.fire({
+              title: 'Success',
+              text: 'Trade submitted successfully',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then(() => {
+              // Optionally close the dialog/modal (if it's a modal dialog)
+              this.closeTradeForm();  // Assuming `this.dialog.close()` is used to close the dialog/modal
+              // console.log('Trade submitted successfully', response);
+            });
+          }
+        }, error => {
+          console.error('Error submitting trade', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'There was an error submitting your trade.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        });
+      
       } else {
-        console.log('Form is invalid');
+        Swal.fire({
+          title: 'Error',
+          text: 'Form is invalid',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        // console.log('Form is invalid');
       }
-    }
+      
+  }
     closeTradeForm(){
       this.closeModal.emit();
     }

@@ -11,81 +11,33 @@
       <div class="card-body p-4">
         <form [formGroup]="tradeForm" (ngSubmit)="onSave()">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    
-            <!-- Order Type -->
+        
+            <!-- Exchange -->
             <div class="space-y-3">
-              <label for="orderType" class="block text-gray-700">Order Type</label>
+              <label for="exchange" class="block text-gray-700">Exchange</label>
               <input
-                id="orderType"
-                formControlName="orderType"
+                id="exchange"
+                formControlName="exchange"
                 type="text"
                 class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Order Type"
+                placeholder="Enter Exchange"
               />
             </div>
-    
-            <!-- Quantity -->
+        
+            <!-- Instrument Type -->
             <div class="space-y-3">
-              <label for="quantity" class="block text-gray-700">Quantity</label>
+              <label for="instrumentType" class="block text-gray-700">Instrument Type</label>
               <input
-                id="quantity"
-                formControlName="quantity"
-                type="number"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Quantity"
-              />
-            </div>
-  
-            <!-- Price -->
-            <div class="space-y-3">
-              <label for="price" class="block text-gray-700">Price</label>
-              <input
-                id="price"
-                formControlName="price"
-                type="number"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Price"
-              />
-            </div>
-  
-            <!-- Trigger Price -->
-            <div class="space-y-3">
-              <label for="triggerPrice" class="block text-gray-700">Trigger Price</label>
-              <input
-                id="triggerPrice"
-                formControlName="triggerPrice"
-                type="number"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Trigger Price"
-              />
-            </div>
-  
-            <!-- Rate Type -->
-            <div class="space-y-3">
-              <label for="rateType" class="block text-gray-700">Rate Type</label>
-              <input
-                id="rateType"
-                formControlName="rateType"
+                id="instrumentType"
+                formControlName="instrumentType"
                 type="text"
                 class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Rate Type"
+                placeholder="Enter Instrument Type"
               />
             </div>
-  
-            <!-- Status -->
-            <div class="space-y-3">
-              <label for="status" class="block text-gray-700">Status</label>
-              <input
-                id="status"
-                formControlName="status"
-                type="text"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Status"
-              />
-            </div>
-  
+        
             <!-- Symbol -->
-            <!-- <div class="space-y-3">
+              <!-- <div class="space-y-3">
               <label for="symbol" class="block text-gray-700">Symbol</label>
               <input
                 id="symbol"
@@ -96,146 +48,27 @@
               />
             </div> -->
             <div class="search-container">
-                <label for="symbol" class="block text-gray-700">Symbol</label>
-                <input 
-                  id="symbol" 
-                  formControlName="symbol" 
-                  type="text" 
-                  class="search-input" 
-                  placeholder="Search for a symbol" 
-                  (click)="showSearchList = true" 
-                  (input)="search($event)" />
-                
-                <!-- Dropdown search list -->
-                <div *ngIf="showSearchList && filteredSymbols.length > 0" class="search-dropdown">
-                  <div 
-                    *ngFor="let symbol of filteredSymbols" 
-                    class="search-dropdown-item" 
-                    (click)="selectSymbol(symbol)">
-                    {{ symbol }}
-                  </div>
+              <label for="symbol" class="block text-gray-700">Symbol</label>
+              <input 
+                id="symbol" 
+                formControlName="symbol" 
+                type="text" 
+                class="search-input" 
+                placeholder="Search for a symbol" 
+                (click)="showSearchList = true" 
+                (input)="search($event)" />
+              
+              <!-- Dropdown search list -->
+              <div *ngIf="showSearchList && filteredSymbols.length > 0" class="search-dropdown">
+                <div 
+                  *ngFor="let symbol of filteredSymbols" 
+                  class="search-dropdown-item" 
+                  (click)="selectSymbol(symbol)">
+                  {{ symbol }}
                 </div>
               </div>
-  
-            <!-- Time -->
-            <div class="space-y-3">
-              <label for="time" class="block text-gray-700">Time</label>
-              <input
-              id="time"
-              formControlName="time"
-              type="date"
-              class="w-full py-2 px-4 border border-gray-300 rounded-md"
-            />
-             
             </div>
-  
-            <!-- Operation Type -->
-            <div class="space-y-3">
-              <label for="operationType" class="block text-gray-700">Operation Type</label>
-              <input
-                id="operationType"
-                formControlName="operationType"
-                type="text"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Operation Type"
-              />
-            </div>
-  
-            <!-- User Id -->
-            <div class="space-y-3">
-              <label for="userId" class="block text-gray-700">User Id</label>
-              <input
-                id="userId"
-                formControlName="userId"
-                type="text"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter User Id"
-              />
-            </div>
-  
-            <!-- GUID -->
-            <div class="space-y-3">
-              <label for="guid" class="block text-gray-700">GUID</label>
-              <input
-                id="guid"
-                formControlName="guid"
-                type="text"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter GUID"
-              />
-            </div>
-  
-            <!-- Basket Id -->
-            <div class="space-y-3">
-              <label for="basketId" class="block text-gray-700">Basket Id</label>
-              <input
-                id="basketId"
-                formControlName="basketId"
-                type="text"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Basket Id"
-              />
-            </div>
-  
-            <!-- Expiry -->
-            <div class="space-y-3">
-              <label for="expiry" class="block text-gray-700">Expiry</label>
-              <input
-                id="expiry"
-                formControlName="expiry"
-                type="date"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-              />
-            </div>
-  
-            <!-- BOGUID -->
-            <div class="space-y-3">
-              <label for="boguid" class="block text-gray-700">BOGUID</label>
-              <input
-                id="boguid"
-                formControlName="boguid"
-                type="text"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter BOGUID"
-              />
-            </div>
-  
-            <!-- StopLoss -->
-            <div class="space-y-3">
-              <label for="stopLoss" class="block text-gray-700">Stop Loss</label>
-              <input
-                id="stopLoss"
-                formControlName="stopLoss"
-                type="number"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Stop Loss"
-              />
-            </div>
-  
-            <!-- TargetPrice -->
-            <div class="space-y-3">
-              <label for="targetPrice" class="block text-gray-700">Target Price</label>
-              <input
-                id="targetPrice"
-                formControlName="targetPrice"
-                type="number"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Target Price"
-              />
-            </div>
-  
-            <!-- Strategy -->
-            <div class="space-y-3">
-              <label for="strategy" class="block text-gray-700">Strategy</label>
-              <input
-                id="strategy"
-                formControlName="strategy"
-                type="text"
-                class="w-full py-2 px-4 border border-gray-300 rounded-md"
-                placeholder="Enter Strategy"
-              />
-            </div>
-  
+        
             <!-- Strike -->
             <div class="space-y-3">
               <label for="strike" class="block text-gray-700">Strike</label>
@@ -247,18 +80,172 @@
                 placeholder="Enter Strike"
               />
             </div>
-  
+        
+            <!-- Expiry -->
+            <div class="space-y-3">
+              <label for="expiry" class="block text-gray-700">Expiry</label>
+              <input
+                id="expiry"
+                formControlName="expiry"
+                type="date"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+              />
+            </div>
+        
+            <!-- Strategy -->
+            <div class="space-y-3">
+              <label for="strategy" class="block text-gray-700">Strategy</label>
+              <input
+                id="strategy"
+                formControlName="strategy"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Strategy"
+              />
+            </div>
+        
+            <!-- Order Type -->
+            <div class="space-y-3">
+              <label for="orderType" class="block text-gray-700">Order Type</label>
+              <input
+                id="orderType"
+                formControlName="orderType"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Order Type"
+              />
+            </div>
+        
+            <!-- Rate Type -->
+            <div class="space-y-3">
+              <label for="rateType" class="block text-gray-700">Rate Type</label>
+              <input
+                id="rateType"
+                formControlName="rateType"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Rate Type"
+              />
+            </div>
+        
+            <!-- Operation Type -->
+            <div class="space-y-3">
+              <label for="operationType" class="block text-gray-700">Operation Type</label>
+              <input
+                id="operationType"
+                formControlName="operationType"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Operation Type"
+              />
+            </div>
+        
+            <!-- Quantity -->
+            <div class="space-y-3">
+              <label for="quantity" class="block text-gray-700">Quantity</label>
+              <input
+                id="quantity"
+                formControlName="quantity"
+                type="number"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Quantity"
+              />
+            </div>
+        
+            <!-- Price -->
+            <div class="space-y-3">
+              <label for="price" class="block text-gray-700">Price</label>
+              <input
+                id="price"
+                formControlName="price"
+                type="number"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Price"
+              />
+            </div>
+        
+            <!-- Trigger Price -->
+            <div class="space-y-3">
+              <label for="triggerPrice" class="block text-gray-700">Trigger Price</label>
+              <input
+                id="triggerPrice"
+                formControlName="triggerPrice"
+                type="number"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Trigger Price"
+              />
+            </div>
+        
+            <!-- Status -->
+            <div class="space-y-3">
+              <label for="status" class="block text-gray-700">Status</label>
+              <input
+                id="status"
+                formControlName="status"
+                type="text"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Status"
+              />
+            </div>
+        
+            <!-- Date -->
+            <div class="space-y-3">
+              <label for="date" class="block text-gray-700">Date</label>
+              <input
+                id="date"
+                formControlName="date"
+                type="date"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+              />
+            </div>
+        
+            <!-- Time -->
+            <div class="space-y-3">
+              <label for="time" class="block text-gray-700">Time</label>
+              <input
+                id="time"
+                formControlName="time"
+                type="time"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+              />
+            </div>
+        
+            <!-- Stop Loss -->
+            <div class="space-y-3">
+              <label for="stopLoss" class="block text-gray-700">Stop Loss</label>
+              <input
+                id="stopLoss"
+                formControlName="stopLoss"
+                type="number"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Stop Loss"
+              />
+            </div>
+        
+            <!-- Target Price -->
+            <div class="space-y-3">
+              <label for="targetPrice" class="block text-gray-700">Target Price</label>
+              <input
+                id="targetPrice"
+                formControlName="targetPrice"
+                type="number"
+                class="w-full py-2 px-4 border border-gray-300 rounded-md"
+                placeholder="Enter Target Price"
+              />
+            </div>
+        
           </div>
+        
           <div class="flex justify-end space-x-3 p-5">
             <button type="button" class="bg-gray-300 py-2 px-4 rounded-md" (click)="closeTradeForm()">Cancel</button>
             <button 
-            type="submit" 
-            class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-            >
-            Save Trade
-          </button>
+              type="submit" 
+              class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+              Save Trade
+            </button>
           </div>
         </form>
+        
           <!-- Save Button -->
           <!-- <div class="mt-6 flex justify-end">
             <button 

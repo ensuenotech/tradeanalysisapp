@@ -86,7 +86,9 @@ showAddLog() {
 onSubmit() {
   if (this.logForm.valid) {
     const newLog = this.logForm.value;
-    console.log(newLog)
+    const tradeDataJson = JSON.stringify(this.logForm.value, null, 2);  // Converts the form values to a formatted JSON string
+    // console.log('[positi] Data (JSON):', tradeDataJson);
+    // console.log(newLog)
     this.logs.push(newLog);  // Add the new log to the logs array
     this.logForm.reset();  // Reset form after submission
     this.showViewLogs();  // Switch back to View Logs

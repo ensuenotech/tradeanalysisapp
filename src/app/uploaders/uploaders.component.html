@@ -1,0 +1,89 @@
+<!-- uploaders.component.html -->
+
+<div class="container mx-auto mt-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-5">
+      <!-- Trade Uploader Section -->
+      <div class="card w-full bg-white shadow-md p-5 relative">
+        <div class="card-header bg-gray-100 p-4 text-lg font-semibold">Trade Uploader</div>
+        <div class="card-body p-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Import Button -->
+            <div>
+              <div class="space-y-3">
+                <button class="btn w-full py-2 px-4 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-100" (click)="importFile()">
+                  Import Trade Data
+                </button>
+              </div>
+            </div>
+            <!-- File Upload Section -->
+            <div>
+              <div class="space-y-3 mb-4">
+                <input type="file" #csvReader name="Upload xlsx" id="txtFileUpload" (change)="uploadListenerOrder($event)" accept=".xlsx" class="block w-full py-2 px-4 border border-gray-300 rounded-md"/>
+              </div>
+              <div class="space-y-3 mb-3">
+                <a href="assets/files/Order-template.xlsx"
+                 target="_blank" rel="noopener noreferrer" 
+                 class="text-blue-500 hover:underline">Download Template</a>
+              </div>
+              <div class="space-y-3 mb-3">
+                <p class="text-sm text-gray-600">Please upload a maximum of 200 data in one upload.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Position the "Open Form" Button at the bottom-left of the container -->
+        <button class="absolute bottom-4 left-4 py-2 px-4 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-100" (click)="openTradeForm()">
+          Open Trade Form
+        </button>
+      </div>
+  
+      <!-- Position Uploader Section -->
+      <div class="card w-full bg-white shadow-md p-5 relative">
+        <div class="card-header bg-gray-100 p-4 text-lg font-semibold">Position Uploader</div>
+        <div class="card-body p-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Import Button -->
+            <div>
+              <div class="space-y-3">
+                <button class="btn w-full py-2 px-4 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-100" (click)="importPositionFile()">
+                  Import Position Data
+                </button>
+              </div>
+            </div>
+            <!-- File Upload Section -->
+            <div>
+              <div class="space-y-3 mb-4">
+                <input type="file" #csvReader name="Upload xlsx" id="txtFileUpload" (change)="uploadListener($event)" accept=".xlsx" class="block w-full py-2 px-4 border border-gray-300 rounded-md"/>
+              </div>
+              <div class="space-y-3 mb-3">
+                <a href="assets/files/Position-template.xlsx"
+                 target="_blank" rel="noopener noreferrer" 
+                 class="text-blue-500 hover:underline">Download Template</a>
+              </div>
+              <div class="space-y-3 mb-3">
+                <p class="text-sm text-gray-600">Please upload a maximum of 200 data in one upload.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Position the "Open Form" Button at the bottom-left of the container -->
+        <button class="absolute bottom-4 left-4 py-2 px-4 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-100" (click)="openPositionForm()">
+          Open Position Form
+        </button>
+      </div>
+    </div>
+</div>
+
+<!-- </div> -->
+<app-position-form-modal 
+  [isFormOpen]="isFormOpen"
+  (closeModal)="closeForm()"
+  (saveData)="onSaveData($event)">
+</app-position-form-modal>
+<app-trade-form-modal
+    [isTradeFormOpen]="isTradeFormOpen"
+    (closeModal)="closeTradeForm()"
+    (saveData)="onSaveTtradeData($event)">
+</app-trade-form-modal>

@@ -6,13 +6,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './user.service';
 import { ILoginModel } from '../model/auth.model';
 import { Services } from '../services.service';
+import { httpOptions } from '../data/configData';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private user:any;
-private API_URL:string =`${this.services.API_URL}/auth`;
+private API_URL:string =`${this.services.API_URL}/auth/`;
+ private api_url:string = `${this.services.API_URL}/api/user/`
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService,
@@ -26,11 +28,19 @@ private API_URL:string =`${this.services.API_URL}/auth`;
   //   return this.http.post(API_URL +"/register", userData, httpOptions);
   // }
 
-  login(userData:ILoginModel) {
-    return this.http.post(`${this.API_URL}/login`, userData);
+  // login(userData: ILoginModel, value: any) {
+  //   return this.http.post(`${this.API_URL}/login`, userData);
+  // }
+  login(email: string, password:any) {
+    var values = { email: email, password: password };
+    return this.http.post(
+      this.api_url + "validateuser",
+      JSON.stringify(values),
+      httpOptions
+    );
   }
   refreshToken() {
-    return this.http.get(`${this.API_URL}/refreshToken`);
+    return this.http.get(`${this.api_url}refreshToken`);
   }
 
   logout() {

@@ -11,6 +11,7 @@ import * as _ from 'lodash';
 import moment from 'moment';
 import { getIST, predicateBy, predicateByDesc } from '../utilities/utils';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
 interface Statistic {
   profit: number;
   loss: number;
@@ -138,20 +139,23 @@ export class TradeAnalysisComponent {
   losscounter10 = 0
   losscounter20 = 0
 
-  constructor(private userService: UserService,
-  ) { }
+  constructor(private userService: UserService, private authservice:AuthService
+  ) {
+   
+   }
 
   ngOnInit(): void {
-    this.userService.getTradeAnalysis().subscribe((res: any) => {
+    this.userId = Number(this.authservice.getUserId())
+    this.userService.getTradeAnalysis(this.userId).subscribe((res: any) => {
       this.data = res
     })
     this.loadChart();
 
   }
   loadChart() {
-
+    this.userId = Number(this.authservice.getUserId())
     this.loading = true
-    this.userService.getPositions().subscribe((data: any) => {
+    this.userService.getPositionListVal(this.userId).subscribe((data: any) => {
       data.forEach((x:any) => {
         x.date = moment(x.updatedOn).format("DD-MM-YYYY")
       })

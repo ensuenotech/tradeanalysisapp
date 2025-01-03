@@ -1,0 +1,56 @@
+<!-- <p>Register works!</p> -->
+<div class="min-h-screen flex flex-col justify-center items-center bg-gray-50 py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <img class="mx-auto h-12 w-auto" src="/assets/images/logo.png" alt="Logo">
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up</h2>
+      <p class="mt-2 text-center text-sm text-gray-600">Please provide with the details below</p>
+    </div>
+  
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="bg-white py-8 px-6 shadow rounded-lg sm:px-10">
+        <form class="space-y-6" *ngIf="section == 'mobile-number'" [formGroup]="OtpForm">
+          <!-- Mobile Number Input -->
+          <div class="relative w-full mb-3">
+            <label for="mobile" class="block text-sm font-medium text-gray-700">Mobile Number</label>
+            <input type="tel" name="mobile" formControlName="mobile" autocomplete="tel"
+                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                   placeholder="Please enter your mobile number" />
+            <p class="mt-2 text-sm text-gray-500">We will send an OTP to this mobile number for validation.</p>
+          </div>
+  
+          <!-- Notification Method -->
+          <fieldset class="mt-4">
+            <legend class="sr-only">Notification method</legend>
+            <div class="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
+              <div class="flex items-center">
+                <input id="whatsapp" type="radio" formControlName="otpType" value="whatsapp"
+                       class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                <label for="whatsapp" class="ml-3 block text-sm font-medium text-gray-900">Whatsapp</label>
+              </div>
+              <div class="flex items-center">
+                <input id="sms" type="radio" formControlName="otpType" value="sms"
+                       class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                <label for="sms" class="ml-3 block text-sm font-medium text-gray-900">Phone (SMS)</label>
+              </div>
+            </div>
+          </fieldset>
+  
+          <!-- Continue Button -->
+          <div class="text-center mt-6">
+            <button type="button"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    (click)="registerViaMobile()">Continue</button>
+          </div>
+  
+          <!-- Already Registered -->
+          <div class="text-center mt-6">
+            <p class="text-sm text-gray-500">
+              Already Registered?
+              <a routerLink="/login" class="font-medium text-indigo-600 hover:text-indigo-500">Click here to Login</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
